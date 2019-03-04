@@ -29,6 +29,12 @@ class ToDoList extends Component {
     });
   };
 
+  handleDelete = id => {
+    this.setState({
+      tasks: this.state.tasks.filter(task => task.id !== id)
+    });
+  };
+
   showOnly = str => {
     this.setState({
       tasksToShow: str
@@ -52,6 +58,7 @@ class ToDoList extends Component {
             key={task.id}
             task={task}
             onComplete={() => this.onComplete(task.id)}
+            onDelete={() => this.handleDelete(task.id)}
           />
         ))}
         <div>
