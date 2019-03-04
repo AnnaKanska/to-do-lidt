@@ -15,6 +15,6 @@ export default props => (
     >
       {props.task.text}
     </div>
-    <button onClick={props.onDelete()}>x</button>
+    <button onClick={props.onDelete}>x</button>
   </div>
 );
