@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import ToDoList from "./todo";
+import ToDoList from "./components/todo";
 
 class Header extends Component {
   render() {
