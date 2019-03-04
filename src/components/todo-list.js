@@ -35,6 +35,12 @@ class ToDoList extends Component {
     });
   };
 
+  removeCompleted = () => {
+    this.setState({
+      tasks: this.state.tasks.filter(task => !task.complete)
+    });
+  };
+
   showOnly = str => {
     this.setState({
       tasksToShow: str
@@ -71,6 +77,13 @@ class ToDoList extends Component {
           <button onClick={() => this.showOnly("remaining")}>Remaining</button>
           <button onClick={() => this.showOnly("completed")}>Completed</button>
         </div>
+        {this.state.tasks.some(task => task.complete) ? (
+          <div>
+            <button onClick={this.removeCompleted}>
+              Remove completed tasks
+            </button>
+          </div>
+        ) : null}
       </div>
     );
   }
