@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ToDoForm from "./todo-form";
+import task from "./task";
 
 class ToDoList extends Component {
   state = {
@@ -17,7 +18,7 @@ class ToDoList extends Component {
       <div>
         <ToDoForm onSubmit={this.addNew} />
         {this.state.tasks.map(task => (
-          <div key={task.id}>{task.text}</div>
+          <task key={task.id} text={task.text} />
         ))}
       </div>
     );
