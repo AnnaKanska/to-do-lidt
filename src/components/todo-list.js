@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ToDoForm from "./todo-form";
-import task from "./task";
+import Task from "./Task";
 
 class ToDoList extends Component {
   state = {
@@ -13,12 +13,31 @@ class ToDoList extends Component {
     });
   };
 
+  onComplete = id => {
+    this.setState({
+      tasks: this.state.tasks.map(task => {
+        if (task.id === id) {
+          return {
+            ...task,
+            complete: !task.complete
+          };
+        } else {
+          return task;
+        }
+      })
+    });
+  };
+
   render() {
     return (
       <div>
         <ToDoForm onSubmit={this.addNew} />
         {this.state.tasks.map(task => (
-          <task key={task.id} text={task.text} />
+          <Task
+            key={task.id}
+            task={task}
+            onComplete={() => this.onComplete(task.id)}
+          />
         ))}
       </div>
     );
