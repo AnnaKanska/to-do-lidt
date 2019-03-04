@@ -4,7 +4,8 @@ import Task from "./Task";
 
 class ToDoList extends Component {
   state = {
-    tasks: []
+    tasks: [],
+    tasksToShow: "all"
   };
 
   addNew = task => {
@@ -28,17 +29,41 @@ class ToDoList extends Component {
     });
   };
 
+  showOnly = str => {
+    this.setState({
+      tasksToShow: str
+    });
+  };
+
   render() {
+    let tasks = [];
+    if (this.state.tasksToShow === "all") {
+      tasks = this.state.tasks;
+    } else if (this.state.tasksToShow === "remaining") {
+      tasks = this.state.tasks.filter(task => !task.complete);
+    } else if (this.state.tasksToShow === "completed") {
+      tasks = this.state.tasks.filter(task => task.complete);
+    }
     return (
       <div>
         <ToDoForm onSubmit={this.addNew} />
-        {this.state.tasks.map(task => (
+        {tasks.map(task => (
           <Task
             key={task.id}
             task={task}
             onComplete={() => this.onComplete(task.id)}
           />
         ))}
+        <div>
+          <p>
+            Tasks left: {this.state.tasks.filter(task => !task.complete).length}
+          </p>
+        </div>
+        <div>
+          <button onClick={() => this.showOnly("all")}>All tasks</button>
+          <button onClick={() => this.showOnly("remaining")}>Remaining</button>
+          <button onClick={() => this.showOnly("completed")}>Completed</button>
+        </div>
       </div>
     );
   }
